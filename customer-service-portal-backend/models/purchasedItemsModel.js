@@ -4,8 +4,11 @@ const purchasedItemsSchema = new mongoose.Schema({
     name: String,
     price: Number,
     desc: String,
-    rating: Number,
-    reviews: String,
+    feedback: [
+        {
+            reviews: String
+        }
+    ]
 },
     { collection: "purchasedItemsCollection" }
 );

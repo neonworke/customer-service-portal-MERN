@@ -37,3 +37,7 @@
   box-shadow: 2px 2px grey;
   border-radius: 5px;
 }
+
+.feedback-input {
+  text-indent: 10px;
+}

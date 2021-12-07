@@ -19,7 +19,9 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const purchasedItemsRouter = require('./routes/purchasedItemsRoute')
+const purchasedItemsRouter = require('./routes/purchasedItemsRoute');
+const complaintRouter = require('./routes/complaintRoute');
+const feedbackRouter = require('./routes/feedbackRoute');
 
 const app = express();
 
@@ -33,5 +35,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/purchasedItems', purchasedItemsRouter);
+app.use('/complaintList', complaintRouter);
+app.use('/feedbackList', feedbackRouter);
 
 module.exports = app;

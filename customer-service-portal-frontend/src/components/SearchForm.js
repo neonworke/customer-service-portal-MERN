@@ -7,7 +7,7 @@ const SearchForm = ({ handleOnChange, str }) => {
                 <label>
                     Search:
                 </label>
-                <input type="text" name="searchStr" onChange={handleOnChange} value={str} placeholder="Search Ticket" autocomplete="off"/>
+                <input type="text" name="searchStr" onChange={handleOnChange} value={str} placeholder="Search Ticket"/>
             </form>
         </div>
     )

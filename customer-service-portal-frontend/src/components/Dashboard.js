@@ -19,7 +19,7 @@ const Dashboard = ({ purchasedItemsList, updatePurchasedItemsList }) => {
             }
         }
         getPurchasedItems();
-    }, []);
+    }, [updatePurchasedItemsList]);
 
     function handleRedirect(purchasedItem) {
         navigate("/PurchasedItemsDetails", {state: purchasedItem})
@@ -31,7 +31,7 @@ const Dashboard = ({ purchasedItemsList, updatePurchasedItemsList }) => {
             return (
                 <div onClick={() => handleRedirect(purchasedItem)}key={purchasedItem._id} className="h-auto w-auto p-4 flex flex-col shadow-lg rounded-lg mt-4 mx-4">
                     <div>
-                        <img src={purchasedItem.image} className="h-40 w-52" />
+                        <img src={purchasedItem.image} alt={purchasedItem.name} className="h-40 w-52" />
                         <div>
                             <span className="font-semibold">{purchasedItem.name}</span>
                             <p className="font-semibold">Price: ${purchasedItem.price}</p>

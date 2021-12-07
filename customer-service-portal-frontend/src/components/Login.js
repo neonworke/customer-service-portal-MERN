@@ -1,41 +1,32 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import "../App.css";
 
 function Login() {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const dashboardnavigate = useNavigate();
+    
 
-    const handleOnChange = (e) => {
-        const { name, value } = e.target;
+    const [emailID, updateEmailID] = useState("");
+    const [password, updatePassword] = useState("");
 
-        switch (name) {
-            case "email":
-                setEmail(value);
-                break;
-            
-            case "password":
-                setPassword(value);
-                break;
-
-            default:
-                break; 
+    async function loginUser(e) {
+        e.preventDefault();
+        try {
+            const response = await signInWithEmailAndPassword(auth, emailID, password);
+            console.log("response", response);
+            dashboardnavigate("/dashboard");
+        } catch(err) {
+            console.log("Error on Login", err)
         }
     }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!email || !password) {
-            return alert("Fill up the form!");
-        }
-    };
 
     function renderLogin() {
         return (
             <div>
-                <form className="h-72 w-80 shadow-md bg-gray-200 rounded-md mr-56" autoComplete="off" onSubmit={handleSubmit}>
+                <form className="h-72 w-80 shadow-md bg-gray-200 rounded-md mr-56" autoComplete="off">
                     <div className="bg-white w-full h-24 text-left">
                         <div className="ml-4 pt-6">
                     <span className="text-gray-600 font-bold text-xl">Login</span>
@@ -44,10 +35,10 @@ function Login() {
                     </div>
                     <div className="mt-4">
                     <div className="input-container text-left w-full flex flex-col justify-center items-center">
-                        <input className="input-col" type="email" name="email" value={email} placeholder="Enter your email address" onChange={handleOnChange} required></input>
-                        <input className="input-col" type="password" name="password" value={password} placeholder="Enter your password" onChange={handleOnChange} required></input>
+                        <input className="input-col" type="email" name="email" value={emailID} placeholder="Enter your email address" onChange={(e) => updateEmailID(e.target.value)} required></input>
+                        <input className="input-col" type="password" name="password" value={password} placeholder="Enter your password" onChange={(e) => updatePassword(e.target.value)} required></input>
                     </div>
-                    <button type="submit" className="mt-4 w-16 h-8 bg-green-400 shadow-md rounded-md text-white font-bold">Login</button>
+                    <button type="submit" className="mt-4 w-16 h-8 bg-green-400 shadow-md rounded-md text-white font-bold" onClick={(e)=> loginUser(e)}>Login</button>
                     </div>
                     </form>
             </div>
@@ -69,12 +60,5 @@ function Login() {
         </div>
     )
 }
-
-// Login.propTypes = {
-//     handleOnChange: PropTypes.func.isRequired,
-//     handleSubmit: PropTypes.func.isRequired,
-//     email: PropTypes.string.isRequired,
-//     password: PropTypes.string.isRequired,
-// };
 
 export default Login
